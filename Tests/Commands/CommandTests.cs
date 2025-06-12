@@ -27,9 +27,9 @@ public class VoidPing : ICommand
 
 public class VoidPingHandler : CommandHandler<VoidPing>
 {
-    public override Task<CanFail> Handle(VoidPing command, CancellationToken cancellationToken)
+    public override Task<CanFail> Handle(VoidPing @event, CancellationToken cancellationToken)
     {
-        command.Called = true;
+        @event.Called = true;
         return Task.FromResult(CanFail.Success);
     }
 }

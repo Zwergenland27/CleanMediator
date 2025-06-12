@@ -11,9 +11,9 @@ public interface IRequestHandler<in TRequest>
     /// <summary>
     /// Actual request logic
     /// </summary>
-    /// <param name="request">Request object</param>
+    /// <param name="event">Request object</param>
     /// <param name="cancellationToken">Cancellation token</param>
-    Task<CanFail> Handle(TRequest request, CancellationToken cancellationToken);
+    Task<CanFail> Handle(TRequest @event, CancellationToken cancellationToken);
 }
 
 /// <summary>

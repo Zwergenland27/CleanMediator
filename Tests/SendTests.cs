@@ -26,9 +26,9 @@ public class VoidPing : IRequest
 
 public class VoidPingHandler : IRequestHandler<VoidPing>
 {
-    public Task<CanFail> Handle(VoidPing request, CancellationToken cancellationToken)
+    public Task<CanFail> Handle(VoidPing @event, CancellationToken cancellationToken)
     {
-        request.Called = true;
+        @event.Called = true;
         return Task.FromResult(CanFail.Success);
     }
 }

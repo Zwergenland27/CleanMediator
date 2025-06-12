@@ -12,9 +12,9 @@ public abstract class CommandHandler<TCommand> : IRequestHandler<TCommand>
     /// <summary>
     /// Actual command logic
     /// </summary>
-    /// <param name="command">Command object</param>
+    /// <param name="event">Command object</param>
     /// <param name="cancellationToken">Cancellation token</param>
-    public abstract Task<CanFail> Handle(TCommand command, CancellationToken cancellationToken);
+    public abstract Task<CanFail> Handle(TCommand @event, CancellationToken cancellationToken);
 }
 
 /// <summary>
