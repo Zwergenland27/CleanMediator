@@ -42,7 +42,7 @@ public class SendTests
         var services = new ServiceCollection();
         services.AddCleanMediator(cfg =>
         {
-            cfg.RegisterAssembly(Assembly.GetExecutingAssembly());
+            cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
         });
         
         _serviceProvider = services.BuildServiceProvider();
@@ -50,7 +50,7 @@ public class SendTests
     }
     
     [Fact]
-    public async Task Send_ShouldReturnResult_WhenNoError()
+    public async Task SendAsync_ShouldReturnResult_WhenNoError()
     {
         //Arrange
         var ping = new VoidPing
@@ -68,7 +68,7 @@ public class SendTests
     }
 
     [Fact]
-    public async Task SendWithResult_ShouldReturnResult_WhenNoError()
+    public async Task SendWithResultAsync_ShouldReturnResult_WhenNoError()
     {
         //Arrange
         var message = "Ping";

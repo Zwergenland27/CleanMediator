@@ -17,7 +17,7 @@ public interface IRequestHandler<in TRequest>
 }
 
 /// <summary>
-/// Defines handler for request of type <typeparamref name="TRequest"/> that returns <typeparamref name="TResponse"/>
+/// Defines handler for request of type <typeparamref name="TRequest"/> that return <typeparamref name="TResponse"/>
 /// </summary>
 public interface IRequestHandler<in TRequest, TResponse>
     where TRequest : IRequest<TResponse>
