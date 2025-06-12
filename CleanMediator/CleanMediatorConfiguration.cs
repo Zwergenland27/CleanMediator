@@ -6,13 +6,19 @@ public class CleanMediatorConfiguration
 {
     internal List<Assembly> RegisteredAssemblies { get; } = [];
 
-    public CleanMediatorConfiguration RegisterAssembly(Assembly assembly)
+    /// <summary>
+    /// Register handlers from assembly <paramref name="assembly"/>
+    /// </summary>
+    public CleanMediatorConfiguration RegisterServicesFromAssembly(Assembly assembly)
     {
         RegisteredAssemblies.Add(assembly);
         return this;
     }
 
-    public CleanMediatorConfiguration RegisterAssemblies(params Assembly[] assemblies)
+    /// <summary>
+    /// Register handlers from list of <paramref name="assemblies"/>
+    /// </summary>
+    public CleanMediatorConfiguration RegisterServicesFromAssemblies(params Assembly[] assemblies)
     {
         RegisteredAssemblies.AddRange(assemblies);
         return this;

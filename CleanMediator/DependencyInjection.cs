@@ -5,6 +5,11 @@ namespace CleanMediator;
 
 public static class DependencyInjection
 {
+    /// <summary>
+    /// Registers mediator types and handlers from the in the configuration specified assemblies
+    /// </summary>
+    /// <param name="services">Service collection</param>
+    /// <param name="configuration">The action used to configure the mediator options</param>
     public static IServiceCollection AddCleanMediator(this IServiceCollection services, Action<CleanMediatorConfiguration> configuration)
     {
         var configurationBuilder = new CleanMediatorConfiguration();
