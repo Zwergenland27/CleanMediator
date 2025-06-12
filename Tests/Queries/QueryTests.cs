@@ -12,9 +12,9 @@ public record Pong(string Value);
 
 public record Ping(string Value) : IQuery<Pong>;
 
-public class PingHandler : QueryHandler<Ping, Pong>
+public class PingHandler : IQueryHandler<Ping, Pong>
 {
-    public override async Task<CanFail<Pong>> Handle(Ping request, CancellationToken cancellationToken)
+    public async Task<CanFail<Pong>> Handle(Ping request, CancellationToken cancellationToken)
     {
         return new Pong(request.Value + "Pong");
     }

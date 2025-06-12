@@ -7,7 +7,7 @@ namespace CleanMediator.Queries;
 /// <summary>
 /// Defines handler for queries of type <typeparamref name="TQuery"/> that return <typeparamref name="TResponse"/>
 /// </summary>
-public abstract class QueryHandler<TQuery, TResponse> : IRequestHandler<TQuery, TResponse>
+public interface IQueryHandler<TQuery, TResponse> : IRequestHandler<TQuery, TResponse>
     where TQuery : IQuery<TResponse>
 {
     /// <summary>

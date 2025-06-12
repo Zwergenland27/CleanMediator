@@ -12,9 +12,9 @@ public record Pong(string Value);
 
 public record Ping(string Value) : ICommand<Pong>;
 
-public class PingHandler : CommandHandler<Ping, Pong>
+public class PingHandler : ICommandHandler<Ping, Pong>
 {
-    public override async Task<CanFail<Pong>> Handle(Ping command, CancellationToken cancellationToken)
+    public async Task<CanFail<Pong>> Handle(Ping command, CancellationToken cancellationToken)
     {
         return new Pong(command.Value + "Pong");
     }
@@ -25,9 +25,9 @@ public class VoidPing : ICommand
     public bool Called { get; set; }
 }
 
-public class VoidPingHandler : CommandHandler<VoidPing>
+public class VoidPingHandler : ICommandHandler<VoidPing>
 {
-    public override Task<CanFail> Handle(VoidPing @event, CancellationToken cancellationToken)
+    public Task<CanFail> Handle(VoidPing @event, CancellationToken cancellationToken)
     {
         @event.Called = true;
         return Task.FromResult(CanFail.Success);

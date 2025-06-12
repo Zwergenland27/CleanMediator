@@ -6,7 +6,7 @@ namespace CleanMediator.Commands;
 /// <summary>
 /// Defines handler for commands of type <typeparamref name="TCommand"/>
 /// </summary>
-public abstract class CommandHandler<TCommand> : IRequestHandler<TCommand>
+public interface ICommandHandler<TCommand> : IRequestHandler<TCommand>
     where TCommand : ICommand
 {
     /// <summary>
@@ -14,13 +14,13 @@ public abstract class CommandHandler<TCommand> : IRequestHandler<TCommand>
     /// </summary>
     /// <param name="event">Command object</param>
     /// <param name="cancellationToken">Cancellation token</param>
-    public abstract Task<CanFail> Handle(TCommand @event, CancellationToken cancellationToken);
+    public new Task<CanFail> Handle(TCommand @event, CancellationToken cancellationToken);
 }
 
 /// <summary>
 /// Defines handler for commands of type <typeparamref name="TCommand"/> that return <typeparamref name="TResponse"/>
 /// </summary>
-public abstract class CommandHandler<TCommand, TResponse> : IRequestHandler<TCommand, TResponse>
+public interface ICommandHandler<TCommand, TResponse> : IRequestHandler<TCommand, TResponse>
     where TCommand : ICommand<TResponse>
 {
     /// <summary>
@@ -28,5 +28,5 @@ public abstract class CommandHandler<TCommand, TResponse> : IRequestHandler<TCom
     /// </summary>
     /// <param name="command">Command object</param>
     /// <param name="cancellationToken">Cancellation token</param>
-    public abstract Task<CanFail<TResponse>> Handle(TCommand command, CancellationToken cancellationToken);
+    public new Task<CanFail<TResponse>> Handle(TCommand command, CancellationToken cancellationToken);
 }
