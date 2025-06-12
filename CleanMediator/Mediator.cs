@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace CleanMediator;
 
-public class Mediator(IServiceProvider serviceProvider)
+public class Mediator(IServiceProvider serviceProvider) : IMediator
 {
     public Task<CanFail> SendAsync(IRequest request, CancellationToken cancellationToken = default)
     {

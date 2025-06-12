@@ -10,7 +10,7 @@ public static class DependencyInjection
         var configurationBuilder = new CleanMediatorConfiguration();
         configuration(configurationBuilder);
 
-        services.AddSingleton<Mediator>();
+        services.AddSingleton<IMediator, Mediator>();
         
         configurationBuilder.RegisteredAssemblies.ForEach(assembly =>
         {

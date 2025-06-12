@@ -36,7 +36,7 @@ public class VoidPingHandler : IRequestHandler<VoidPing>
 public class SendTests
 {
     private readonly IServiceProvider _serviceProvider;
-    private readonly Mediator _mediator;
+    private readonly IMediator _mediator;
     public SendTests()
     {
         var services = new ServiceCollection();
@@ -46,7 +46,7 @@ public class SendTests
         });
         
         _serviceProvider = services.BuildServiceProvider();
-        _mediator = _serviceProvider.GetService<Mediator>()!;
+        _mediator = _serviceProvider.GetService<IMediator>()!;
     }
     
     [Fact]
