@@ -75,7 +75,7 @@ public class SendTests
         var ping = new Ping(message);
         
         //Act
-        var result = await _mediator.SendAsync<Ping, Pong> (ping);
+        var result = await _mediator.SendAsync(ping);
         
         //Assert
         result.HasFailed.ShouldBeFalse();

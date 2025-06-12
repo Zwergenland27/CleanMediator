@@ -5,17 +5,17 @@ namespace CleanMediator;
 
 public class Mediator(IServiceProvider serviceProvider)
 {
-    public Task<CanFail> SendAsync<TRequest>(TRequest request, CancellationToken cancellationToken = default)
-        where TRequest : IRequest
+    public Task<CanFail> SendAsync(IRequest request, CancellationToken cancellationToken = default)
     {
-        var handler = serviceProvider.GetRequiredService<IRequestHandler<TRequest>>();
-        return handler.Handle(request, cancellationToken);
+        var handlerType = typeof(IRequestHandler<>).MakeGenericType(request.GetType());
+        dynamic handler = serviceProvider.GetRequiredService(handlerType);
+        return handler.Handle((dynamic)request, cancellationToken);
     }
     
-    public Task<CanFail<TResponse>> SendAsync<TRequest, TResponse>(TRequest request, CancellationToken cancellationToken = default)
-        where TRequest : IRequest<TResponse>
+    public Task<CanFail<TResponse>> SendAsync<TResponse>(IRequest<TResponse> request, CancellationToken cancellationToken = default)
     {
-        var handler = serviceProvider.GetRequiredService<IRequestHandler<TRequest, TResponse>>();
-        return handler.Handle(request, cancellationToken);
+        var handlerType = typeof(IRequestHandler<,>).MakeGenericType(request.GetType(), typeof(TResponse));
+        dynamic handler = serviceProvider.GetRequiredService(handlerType);
+        return handler.Handle((dynamic)request, cancellationToken);
     }
 }
