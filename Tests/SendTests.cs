@@ -13,9 +13,9 @@ public record Ping(string Value) : IRequest<Pong>;
 
 public class PingHandler : IRequestHandler<Ping, Pong>
 {
-    public async Task<CanFail<Pong>> Handle(Ping request, CancellationToken cancellationToken)
+    public async Task<CanFail<Pong>> Handle(Ping command, CancellationToken cancellationToken)
     {
-        return new Pong(request.Value + "Pong");
+        return new Pong(command.Value + "Pong");
     }
 }
 
