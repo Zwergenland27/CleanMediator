@@ -32,7 +32,7 @@ public class EventTests
     }
 
     [Fact]
-    public async Task PublishAsync_ShouldCallSendAsync()
+    public async Task PublishAsync_ShouldCallSendInOwnScopeAsync()
     {
         //Arrange
         var ping = new VoidPing
@@ -46,7 +46,7 @@ public class EventTests
         _ = await mediator.PublishAsync(ping);
 
         //Assert
-        await mediator.Received(1).SendAsync(ping);
+        await mediator.Received(1).SendInOwnScopeAsync(ping);
     }
 
 }

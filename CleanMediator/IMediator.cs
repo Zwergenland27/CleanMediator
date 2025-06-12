@@ -14,6 +14,14 @@ public interface IMediator
     /// <param name="cancellationToken">Optional cancellation token</param>
     /// <returns>Task represents the send operation. The returned object contains status information about the request success</returns>
     Task<CanFail> SendAsync(IRequest request, CancellationToken cancellationToken = default);
+    
+    /// <summary>
+    /// Asynchronously send a request that can fail to a handler in its own scope
+    /// </summary>
+    /// <param name="request">Request object</param>
+    /// <param name="cancellationToken">Optional cancellation token</param>
+    /// <returns>Task represents the send operation. The returned object contains status information about the request success</returns>
+    Task<CanFail> SendInOwnScopeAsync(IRequest request, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Asynchronously send a request that can fail with a return type to a handler
@@ -23,4 +31,13 @@ public interface IMediator
     /// <typeparamref name="TResponse">Response type</typeparamref>
     /// <returns>Task represents the send operation. The returned object contains status information about the request success including the result type</returns>
     Task<CanFail<TResponse>> SendAsync<TResponse>(IRequest<TResponse> request, CancellationToken cancellationToken = default);
+    
+    /// <summary>
+    /// Asynchronously send a request that can fail with a return type to a handler in its own scope
+    /// </summary>
+    /// <param name="request">Request object</param>
+    /// <param name="cancellationToken">Optional cancellation token</param>
+    /// <typeparamref name="TResponse">Response type</typeparamref>
+    /// <returns>Task represents the send operation. The returned object contains status information about the request success including the result type</returns>
+    Task<CanFail<TResponse>> SendInOwnScopeAsync<TResponse>(IRequest<TResponse> request, CancellationToken cancellationToken = default);
 }

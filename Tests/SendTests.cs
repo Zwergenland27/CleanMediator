@@ -64,9 +64,27 @@ public class SendTests
         //Assert
         result.HasFailed.ShouldBeFalse();
         ping.Called.ShouldBeTrue();
-
     }
-
+    
+    [Fact]
+    public async Task SendInOwnScopeAsync_ShouldReturnResult_WhenNoError()
+    {
+        //Arrange
+        var ping = new VoidPing
+        {
+            Called = false
+        };
+        
+        //Act
+        var result = await _mediator.SendInOwnScopeAsync(ping);
+        
+        //Assert
+        result.HasFailed.ShouldBeFalse();
+        ping.Called.ShouldBeTrue();
+    }
+    
+    //TODO: Add test that verifies that the request will be executed in another scope
+    
     [Fact]
     public async Task SendWithResultAsync_ShouldReturnResult_WhenNoError()
     {
@@ -83,4 +101,23 @@ public class SendTests
         pong.ShouldBeOfType<Pong>();
         pong.Value.ShouldBe(message + "Pong");
     }
+    
+    [Fact]
+    public async Task SendInOwnScopeWithResultAsync_ShouldReturnResult_WhenNoError()
+    {
+        //Arrange
+        var message = "Ping";
+        var ping = new Ping(message);
+        
+        //Act
+        var result = await _mediator.SendInOwnScopeAsync(ping);
+        
+        //Assert
+        result.HasFailed.ShouldBeFalse();
+        var pong = result.Value;
+        pong.ShouldBeOfType<Pong>();
+        pong.Value.ShouldBe(message + "Pong");
+    }
+    
+    //TODO: Add test that verifies that the request will be executed in another scope
 }

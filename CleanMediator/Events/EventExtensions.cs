@@ -1,5 +1,6 @@
 using CleanDomainValidation.Domain;
 using CleanMediator.Commands;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace CleanMediator.Events;
 
@@ -19,6 +20,6 @@ public static class EventExtensions
         IEvent @event,
         CancellationToken cancellationToken = default)
     {
-        return mediator.SendAsync(@event, cancellationToken);
+        return mediator.SendInOwnScopeAsync(@event, cancellationToken);
     }
 }
