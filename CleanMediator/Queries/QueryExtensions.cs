@@ -10,6 +10,7 @@ public static class QueryExtensions
     /// <summary>
     /// Asynchronously send a query that can fail to a handler
     /// </summary>
+    /// <param name="mediator">Mediator</param>
     /// <param name="query">Query object</param>
     /// <param name="cancellationToken">Optional cancellation token</param>
     /// <typeparamref name="TResponse">Response type</typeparamref>

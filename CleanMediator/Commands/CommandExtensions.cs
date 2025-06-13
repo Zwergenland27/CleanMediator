@@ -10,6 +10,7 @@ public static class CommandExtensions
     /// <summary>
     /// Asynchronously send a command that can fail to a handler
     /// </summary>
+    /// <param name="mediator">Mediator</param>
     /// <param name="command">Command object</param>
     /// <param name="cancellationToken">Optional cancellation token</param>
     /// <returns>Task represents the execute operation. The returned object contains status information about the command success</returns>
@@ -24,6 +25,7 @@ public static class CommandExtensions
     /// <summary>
     /// Asynchronously send a command that can fail with a return type to a handler
     /// </summary>
+    /// <param name="mediator">Mediator</param>
     /// <param name="command">Command object</param>
     /// <param name="cancellationToken">Optional cancellation token</param>
     /// <typeparamref name="TResponse">Response type</typeparamref>

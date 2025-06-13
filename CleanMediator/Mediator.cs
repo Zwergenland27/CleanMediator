@@ -6,8 +6,6 @@ namespace CleanMediator;
 /// <inheritdoc/>
 public class Mediator(IServiceProvider serviceProvider) : IMediator
 {
-    public IServiceProvider ServiceProvider => serviceProvider;
-
     /// <inheritdoc/>
     public Task<CanFail> SendAsync(IRequest request, CancellationToken cancellationToken = default)
     {

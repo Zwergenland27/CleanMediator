@@ -2,6 +2,9 @@ using System.Reflection;
 
 namespace CleanMediator;
 
+/// <summary>
+/// Configurations for the mediator
+/// </summary>
 public class CleanMediatorConfiguration
 {
     internal List<Assembly> RegisteredAssemblies { get; } = [];
