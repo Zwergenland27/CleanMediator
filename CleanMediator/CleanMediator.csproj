@@ -4,6 +4,22 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <PackageId>Zwergenland.CleanMediator</PackageId>
+    <Title>CleanMediator</Title>
+    <Company>Zwergenland</Company>
+    <Version>0.0.0-beta</Version>
+    <Authors>Florian Königsmann</Authors>
+    <Product>CleanMediator</Product>
+    <Description>Simple mediator pattern that includes result pattern implemented by CleanDomainValidation</Description>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/Zwergenland27/CleanMediator</RepositoryUrl>
+    <PackageTags>Mediator; Clean Architecture; DDD;</PackageTags>
+    <PackageProjectUrl>https://github.com/Zwergenland27/CleanMediator/</PackageProjectUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+    <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
