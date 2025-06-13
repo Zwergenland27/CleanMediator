@@ -18,7 +18,7 @@ public static class DependencyInjection
         var configurationBuilder = new CleanMediatorConfiguration();
         configuration(configurationBuilder);
 
-        services.AddSingleton<IMediator, Mediator>();
+        services.AddTransient<IMediator, Mediator>();
         
         configurationBuilder.RegisteredAssemblies.ForEach(assembly =>
         {
