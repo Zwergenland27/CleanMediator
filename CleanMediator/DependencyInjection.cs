@@ -3,6 +3,9 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace CleanMediator;
 
+/// <summary>
+/// Extensions to add mediator to services
+/// </summary>
 public static class DependencyInjection
 {
     /// <summary>

@@ -12,6 +12,7 @@ public static class EventExtensions
     /// <summary>
     /// Asynchronously publishes an event that can fail to a handler
     /// </summary>
+    /// <param name="mediator">Mediator</param>
     /// <param name="event">Event object</param>
     /// <param name="cancellationToken">Optional cancellation token</param>
     /// <returns>Task represents the publish operation. The returned object contains status information about the event success</returns>
