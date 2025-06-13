@@ -110,41 +110,6 @@ public class SendTests
     }
     
     [Fact]
-    public async Task SendInOwnScopeAsync_ShouldReturnResult_WhenNoError()
-    {
-        //Arrange
-        var ping = new VoidPing
-        {
-            Called = false
-        };
-        
-        //Act
-        var result = await _mediator.SendInOwnScopeAsync(ping);
-        
-        //Assert
-        result.HasFailed.ShouldBeFalse();
-        ping.Called.ShouldBeTrue();
-    }
-    
-    [Fact]
-    public async Task SendInOwnScopeAsync_ShouldRunInNewScope()
-    {
-        //Arrange
-        var ping = new ScopedVoidPing();
-        
-        var scopeId = _serviceProvider.GetRequiredService<ScopedService>().ScopeId;
-        var singletonService = _serviceProvider.GetRequiredService<SingletonScopedServiceTest>();
-        singletonService.OuterScopeId = scopeId;
-        
-        //Act
-        _ = await _mediator.SendInOwnScopeAsync(ping);
-        
-        //Assert
-        
-        singletonService.OuterScopeId.ShouldNotBe(singletonService.InnerScopeId);
-    }
-    
-    [Fact]
     public async Task SendWithResultAsync_ShouldReturnResult_WhenNoError()
     {
         //Arrange
@@ -159,39 +124,5 @@ public class SendTests
         var pong = result.Value;
         pong.ShouldBeOfType<Pong>();
         pong.Value.ShouldBe(message + "Pong");
-    }
-    
-    [Fact]
-    public async Task SendInOwnScopeWithResultAsync_ShouldReturnResult_WhenNoError()
-    {
-        //Arrange
-        var message = "Ping";
-        var ping = new Ping(message);
-        
-        //Act
-        var result = await _mediator.SendInOwnScopeAsync(ping);
-        
-        //Assert
-        result.HasFailed.ShouldBeFalse();
-        var pong = result.Value;
-        pong.ShouldBeOfType<Pong>();
-        pong.Value.ShouldBe(message + "Pong");
-    }
-    
-    [Fact]
-    public async Task SendInOwnScopeWithResultAsync_ShouldRunInNewScope()
-    {
-        //Arrange
-        var ping = new ScopedPing();
-        
-        var scopeId = _serviceProvider.GetRequiredService<ScopedService>().ScopeId;
-        
-        //Act
-        var result = await _mediator.SendInOwnScopeAsync(ping);
-        
-        //Assert
-        var scopeInRequestId = result.Value.ScopeId;
-        
-        scopeId.ShouldNotBe(scopeInRequestId);
     }
 }

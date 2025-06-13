@@ -39,7 +39,7 @@ public class EventTests
         _ = await mediator.PublishAsync(ping);
 
         //Assert
-        await mediator.Received(1).SendInOwnScopeAsync(ping);
+        await mediator.Received(1).SendAsync(ping);
     }
 
 }

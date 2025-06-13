@@ -21,6 +21,6 @@ public static class EventExtensions
         IEvent @event,
         CancellationToken cancellationToken = default)
     {
-        return mediator.SendInOwnScopeAsync(@event, cancellationToken);
+        return mediator.SendAsync(@event, cancellationToken);
     }
 }
