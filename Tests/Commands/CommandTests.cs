@@ -8,28 +8,26 @@ using ICommand = CleanMediator.Commands.ICommand;
 
 namespace Tests.Commands;
 
-public record Pong(string Value);
+public record Pong;
 
-public record Ping(string Value) : ICommand<Pong>;
+public record Ping : ICommand<Pong>;
 
 public class PingHandler : ICommandHandler<Ping, Pong>
 {
-    public async Task<CanFail<Pong>> Handle(Ping command, CancellationToken cancellationToken)
+    public Task<CanFail<Pong>> Handle(Ping query, CancellationToken cancellationToken)
     {
-        return new Pong(command.Value + "Pong");
+        var result = new CanFail<Pong>();
+        result.Succeeded(new Pong());
+        return Task.FromResult(result);
     }
 }
 
-public class VoidPing : ICommand
-{
-    public bool Called { get; set; }
-}
+public record VoidPing : ICommand;
 
-public class VoidPingHandler : ICommandHandler<VoidPing>
+public class VoidPingHandlerBase : CommandHandlerBase<VoidPing>
 {
-    public Task<CanFail> Handle(VoidPing @event, CancellationToken cancellationToken)
+    public override Task<CanFail> Handle(VoidPing query, CancellationToken cancellationToken)
     {
-        @event.Called = true;
         return Task.FromResult(CanFail.Success);
     }
 }
@@ -49,10 +47,7 @@ public class CommandTests
     public async Task ExecuteAsync_ShouldCallSendAsync()
     {
         //Arrange
-        var ping = new VoidPing
-        {
-            Called = false
-        };
+        var ping = new VoidPing();
         
         var mediator = Substitute.For<IMediator>();
         
@@ -68,8 +63,7 @@ public class CommandTests
     public async Task ExecuteWithResultAsync_ShouldCallSendAsync()
     {
         //Arrange
-        var message = "Ping";
-        var ping = new Ping(message);
+        var ping = new Ping();
         var mediator = Substitute.For<IMediator>();
         
         //Act

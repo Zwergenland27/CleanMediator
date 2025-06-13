@@ -6,16 +6,12 @@ using Microsoft.Extensions.DependencyInjection;
 using NSubstitute;
 namespace Tests.Events;
 
-public class VoidPing : IEvent
-{
-    public bool Called { get; set; }
-}
+public record VoidPing : IEvent;
 
-public class VoidPingHandler : IEventHandler<VoidPing>
+public class VoidPingHandlerBase : EventHandlerBase<VoidPing>
 {
-    public Task<CanFail> Handle(VoidPing @event, CancellationToken cancellationToken)
+    public override Task<CanFail> Handle(VoidPing query, CancellationToken cancellationToken)
     {
-        @event.Called = true;
         return Task.FromResult(CanFail.Success);
     }
 }
@@ -35,10 +31,7 @@ public class EventTests
     public async Task PublishAsync_ShouldCallSendInOwnScopeAsync()
     {
         //Arrange
-        var ping = new VoidPing
-        {
-            Called = false
-        };
+        var ping = new VoidPing();
 
         var mediator = Substitute.For<IMediator>();
 

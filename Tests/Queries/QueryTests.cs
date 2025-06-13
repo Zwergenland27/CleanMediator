@@ -1,22 +1,23 @@
 using System.Reflection;
 using CleanDomainValidation.Domain;
 using CleanMediator;
-using CleanMediator.Commands;
 using CleanMediator.Queries;
 using Microsoft.Extensions.DependencyInjection;
 using NSubstitute;
 
 namespace Tests.Queries;
 
-public record Pong(string Value);
+public record Pong;
 
-public record Ping(string Value) : IQuery<Pong>;
+public record Ping : IQuery<Pong>;
 
-public class PingHandler : IQueryHandler<Ping, Pong>
+public class PingHandlerBase : QueryHandlerBase<Ping, Pong>
 {
-    public async Task<CanFail<Pong>> Handle(Ping request, CancellationToken cancellationToken)
+    public override Task<CanFail<Pong>> Handle(Ping query, CancellationToken cancellationToken)
     {
-        return new Pong(request.Value + "Pong");
+        var result = new CanFail<Pong>();
+        result.Succeeded(new Pong());
+        return Task.FromResult(result);
     }
 }
 
@@ -35,8 +36,7 @@ public class QueryTests
     public async Task ExecuteWithResultAsync_ShouldCallSendAsync()
     {
         //Arrange
-        var message = "Ping";
-        var ping = new Ping(message);
+        var ping = new Ping();
         var mediator = Substitute.For<IMediator>();
         
         //Act

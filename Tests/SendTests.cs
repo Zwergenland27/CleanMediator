@@ -1,4 +1,3 @@
-using System.Net.NetworkInformation;
 using System.Reflection;
 using CleanDomainValidation.Domain;
 using CleanMediator;
@@ -13,9 +12,11 @@ public record Ping(string Value) : IRequest<Pong>;
 
 public class PingHandler : IRequestHandler<Ping, Pong>
 {
-    public async Task<CanFail<Pong>> Handle(Ping command, CancellationToken cancellationToken)
+    public Task<CanFail<Pong>> Handle(Ping query, CancellationToken cancellationToken)
     {
-        return new Pong(command.Value + "Pong");
+        var result = new CanFail<Pong>();
+        result.Succeeded(new Pong(query.Value + "Pong"));
+        return Task.FromResult(result);
     }
 }
 
@@ -26,9 +27,9 @@ public class VoidPing : IRequest
 
 public class VoidPingHandler : IRequestHandler<VoidPing>
 {
-    public Task<CanFail> Handle(VoidPing @event, CancellationToken cancellationToken)
+    public Task<CanFail> Handle(VoidPing query, CancellationToken cancellationToken)
     {
-        @event.Called = true;
+        query.Called = true;
         return Task.FromResult(CanFail.Success);
     }
 }
@@ -38,10 +39,13 @@ public record ScopedPing : IRequest<ScopedPong>;
 
 public class ScopedPingHandler(IServiceProvider serviceProvider): IRequestHandler<ScopedPing, ScopedPong>
 {
-    public async Task<CanFail<ScopedPong>> Handle(ScopedPing command, CancellationToken cancellationToken)
+    public Task<CanFail<ScopedPong>> Handle(ScopedPing query, CancellationToken cancellationToken)
     {
         var scopedService = serviceProvider.GetRequiredService<ScopedService>();
-        return new ScopedPong(scopedService.ScopeId);
+        
+        var result = new CanFail<ScopedPong>();
+        result.Succeeded(new ScopedPong(scopedService.ScopeId));
+        return Task.FromResult(result);
     }
 }
 
@@ -49,7 +53,7 @@ public record ScopedVoidPing : IRequest;
 
 public class ScopedVoidPingHandler(IServiceProvider serviceProvider) : IRequestHandler<ScopedVoidPing>
 {
-    public Task<CanFail> Handle(ScopedVoidPing @event, CancellationToken cancellationToken)
+    public Task<CanFail> Handle(ScopedVoidPing query, CancellationToken cancellationToken)
     {
         var scopedService = serviceProvider.GetRequiredService<ScopedService>();
         var singletonService = serviceProvider.GetRequiredService<SingletonScopedServiceTest>();
