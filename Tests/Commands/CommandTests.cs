@@ -12,9 +12,9 @@ public record Pong;
 
 public record Ping : ICommand<Pong>;
 
-public class PingHandler : ICommandHandler<Ping, Pong>
+public class PingHandler : CommandHandlerBase<Ping, Pong>
 {
-    public Task<CanFail<Pong>> Handle(Ping query, CancellationToken cancellationToken)
+    public override Task<CanFail<Pong>> Handle(Ping query, CancellationToken cancellationToken)
     {
         var result = new CanFail<Pong>();
         result.Succeeded(new Pong());
