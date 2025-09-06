@@ -20,6 +20,21 @@ public abstract class CommandHandlerBase<TCommand> : IRequestHandler<TCommand>
 /// <summary>
 /// Defines handler for commands of type <typeparamref name="TCommand"/> that return <typeparamref name="TResponse"/>
 /// </summary>
+public abstract class CommandHandlerBase<TCommand, TResponse> : IRequestHandler<TCommand, TResponse>
+    where TCommand : ICommand<TResponse>
+{
+    /// <summary>
+    /// Actual command logic
+    /// </summary>
+    /// <param name="command">Command object</param>
+    /// <param name="cancellationToken">Cancellation token</param>
+    public abstract Task<CanFail<TResponse>> Handle(TCommand command, CancellationToken cancellationToken);
+}
+
+/// <summary>
+/// Defines handler for commands of type <typeparamref name="TCommand"/> that return <typeparamref name="TResponse"/>
+/// </summary>
+[Obsolete("Use CommandHandlerBase<TCommand, TResponse> instead")]
 public interface ICommandHandler<in TCommand, TResponse> : IRequestHandler<TCommand, TResponse>
     where TCommand : ICommand<TResponse>
 {
